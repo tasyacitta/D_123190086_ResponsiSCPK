@@ -1,0 +1,25 @@
+clc; %membersihkan command window
+%mengambil data yang akan dipakai dari dataset menggunakan import data
+table=Realestatevaluationdataset;
+x=table{:,:}; format shortG; %mengubah tipe data dari table ke array
+k=[0,0,1,0]; %sifat kriteria
+w=[3,5,4,1]; %bobot tiap kriteria
+[m n]=size (x); %inisialisasi ukuran x
+w=w./sum(w); %membagi bobot tiap kriteria dengan total seluruh bobot
+for j=1:n,  %perulangan untuk menghitung S tiap alternatif
+    if k(j)==0, w(j)=-1*w(j);
+    end;
+end;
+for i=1:m,  
+    S(i)=prod(x(i,:).^w);
+end;
+
+V= S/sum(S); %perhitungan mencari nilai 
+[poin no]=sort(V,'descend'); %mengurutkan data dari nilai terbesar 
+%poin adalah nilai dari hasil perhitungan
+%no adalah nomor urut data
+
+for i=1:5, %perulangan untuk mengambil lima data teratas
+    rank=['Ranking ',num2str(i),' adalah data no ',num2str(no(i)),' dengan poin ', num2str(poin(i))]; 
+    disp(rank); %menampilkan lima data teratas
+end
