@@ -1,7 +1,9 @@
-clc; %membersihkan command window
+clc; clear;%membersihkan command window
 %mengambil data yang akan dipakai dari dataset menggunakan import data
-table=Realestatevaluationdataset;
-x=table{:,:}; format shortG; %mengubah tipe data dari table ke array
+opts = detectImportOptions('Real estate valuation data set.xlsx');
+opts.SelectedVariableNames = [3:5 8];
+data = readmatrix('Real estate valuation data set.xlsx', opts);
+x=data(1:50,:);  %mengubah tipe data dari table ke array
 k=[0,0,1,0]; %sifat kriteria
 w=[3,5,4,1]; %bobot tiap kriteria
 [m n]=size (x); %inisialisasi ukuran x
